@@ -1,4 +1,6 @@
 # ATTENTION Il faut lancer un Notebook pour voir !
+# Vérifier comment gérer la colonne des modèles dans les calculs
+# Faire l'analyses écrites
 
 import pandas as pd
 
@@ -41,3 +43,7 @@ print(df.std())
 #Print the mean of every Histograms
 print('---\nGenerate Mean')
 print(df.mean())
+
+#Print Corr matrix for numeric values
+print('---\nGenerate Corr Matrix')
+print(df.corr(method='pearson'))
