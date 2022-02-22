@@ -1,3 +1,5 @@
+# ATTENTION Il faut lancer un Notebook pour voir !
+
 import pandas as pd
 
 dtypes = {"Car": "str", "MPG": "float", "Cylinders": "int", "Displacement": "float", "Horsepower": "float", "Weight": "float", "Acceleration": "float", "Model": "int", "Origin": "str"}
@@ -35,3 +37,7 @@ count_origin.plot(kind='bar')
 #Print the standart Deviation of every Histograms
 print('---\nGenerate Standart Deviation')
 print(df.std())
+
+#Print the mean of every Histograms
+print('---\nGenerate Mean')
+print(df.mean())
