@@ -28,6 +28,10 @@ df.hist(column='Acceleration')
 print('---\nGenerate Histogram for Model')
 df.hist(column='Model')
 
+print('---\nGenerate Histogram for Origin')
+count_origin = df['Origin'].value_counts()
+count_origin.plot(kind='bar')
+
 #Print the standart Deviation of every Histograms
 print('---\nGenerate Standart Deviation')
 print(df.std())
