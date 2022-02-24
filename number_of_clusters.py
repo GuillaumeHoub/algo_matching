@@ -1,18 +1,14 @@
-from cluster import kmeans, calculate_cost
+from cluster import kmeans, data
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-
-dtypes = {"Car": "str", "MPG": "float", "Cylinders": "int", "Displacement": "float", "Horsepower": "float",
-          "Weight": "float", "Acceleration": "float", "Model": "int", "Origin": "str"}
-
-df = pd.DataFrame(pd.read_csv("./cars.csv", header=0, dtype=dtypes))
-
-# Choisir les colonnes qui serviront pour le clustering
-data = df.loc[:, ['Acceleration', 'Horsepower']]
-
+def calculate_cost(np_array, centroids, cluster):
+    sum = 0
+    for i, val in enumerate(np_array):
+        sum += np.sqrt((centroids[int(cluster[i]), 0] - val[0]) ** 2 + (centroids[int(cluster[i]), 1] - val[1]) ** 2)
+    return sum
 
 def find_optimal_number_of_cluster(np_array):
     cost_list = []

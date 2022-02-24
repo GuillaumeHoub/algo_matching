@@ -9,14 +9,8 @@ dtypes = {"Car": "str", "MPG": "float", "Cylinders": "int", "Displacement": "flo
 df = pd.DataFrame(pd.read_csv("./cars.csv", header=0, dtype=dtypes))
 
 # Choisir les colonnes qui serviront pour le clustering
-data = df.loc[:, ['Acceleration', 'Horsepower']]
-
-
-def calculate_cost(np_array, centroids, cluster):
-    sum = 0
-    for i, val in enumerate(np_array):
-        sum += np.sqrt((centroids[int(cluster[i]), 0] - val[0]) ** 2 + (centroids[int(cluster[i]), 1] - val[1]) ** 2)
-    return sum
+colonnes = ["Acceleration", "Horsepower"]
+data = df.loc[:, [colonnes[0], colonnes[1]]]
 
 def kmeans(np_array, k):
     diff = 1
@@ -45,14 +39,16 @@ if __name__ == '__main__':
     np_array = data.values
     print(np_array.shape)
     sns.scatterplot(x=np_array[:, 0], y=np_array[:, 1])
-    plt.xlabel('Acceleration')
-    plt.ylabel('Horsepower')
+    plt.xlabel(colonnes[0])
+    plt.ylabel(colonnes[1])
     plt.show()
+    
+
     #Choix du nombre de cluster grace à number_of_cluster.py
     k = 5
     centroids, cluster = kmeans(np_array, k)
     sns.scatterplot(x=np_array[:, 0], y=np_array[:, 1], hue=cluster)
     sns.scatterplot(x=centroids[:, 0], y=centroids[:, 1], s=100, color='y')
-    plt.xlabel('Acceleration')
-    plt.ylabel('Horsepower')
+    plt.xlabel(colonnes[0])
+    plt.ylabel(colonnes[1])
     plt.show()
