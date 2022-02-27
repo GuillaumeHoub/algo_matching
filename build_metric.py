@@ -5,9 +5,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from IPython import display
 from graphviz import Graph
-#%%
+
 dataframe = pd.read_csv("./cars.csv")
-#%%
 nb_cars = len(dataframe.index)
 print(nb_cars)
 print(dataframe.info())
@@ -17,6 +16,7 @@ nb_cars = len(dataframe.index)
 car_id = 0
 print(f"---\nall information on car {car_id}\n---")
 print(dataframe.loc[car_id])
+
 def compute_dissimilarity(car_1_id, car_2_id):
     """
         Compute  dissimilarity betwwen two cars
@@ -27,28 +27,19 @@ def compute_dissimilarity(car_1_id, car_2_id):
         We must handle it differently than quantitative
         attributes.
     """
-    car_1_horespower = dataframe.loc[car_1_id][4]
-    car_2_horsepower = dataframe.loc[car_2_id][4]
+    car_1_MPG = dataframe.loc[car_1_id][1]
+    car_2_MPG = dataframe.loc[car_2_id][1]
 
-    car_1_cylinder = dataframe.loc[car_1_id][2]
-    car_2_cylinder = dataframe.loc[car_2_id][2]
-
-    car_1_year = dataframe.loc[car_1_id][7]
-    car_2_year = dataframe.loc[car_2_id][7]
-
-    if car_1_year == car_2_year:
-        dissimilarity_year = 0
-    else:
-        dissimilarity_year = 1
-
+    car_1_weight = dataframe.loc[car_1_id][5]
+    car_2_weight = dataframe.loc[car_2_id][5]
     # EDIT HERE
     dissimilarity = math.sqrt(
-        (car_1_horespower-car_2_horsepower)**2+(car_1_cylinder-car_2_cylinder)**2+dissimilarity_year)
+        (car_1_MPG-car_2_MPG)**2+(car_1_weight-car_2_weight)**2)
 
     print("----")
     car_1_name = dataframe.loc[car_1_id]["Car"]
     car_2_name = dataframe.loc[car_2_id]["Car"]
-    #print(f"plyr 1 {car_1_name}, plyr 2 {car_2_name}, dissimilarity: {dissimilarity}")
+    print(f"plyr 1 {car_1_name}, plyr 2 {car_2_name}, dissimilarity: {dissimilarity}")
     return dissimilarity
 
 dissimilarity_matrix = np.zeros((nb_cars, nb_cars))
@@ -60,7 +51,7 @@ for car_1_id in range(nb_cars):
 
 print("dissimilarity matrix")
 print(dissimilarity_matrix)
-threshold = 3
+threshold = 1000
 # build a graph from the dissimilarity
 dot = Graph(comment='Graph created from complex data',
             strict=True)
@@ -86,5 +77,5 @@ for car_1_id in range(nb_cars):
 
 # visualize the graph
 dot.attr(label=f"threshold {threshold}", fontsize='20')
-graph_name = f"images/complex_data_threshold_{threshold}"
+graph_name = f"images/Weight_MPG_DiffGraph_threshold_{threshold}"
 dot.render(graph_name)
